@@ -5,18 +5,33 @@ import java.util.*;
 public class Trainer implements ITrainer {
     private List<Pokemon> capturedPokemonList = new ArrayList<>();
     private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
-    private String currentCity; // 현재 위치
+    private City currentCity; // 현재 위치
 
     private Scanner inputReader = new Scanner(System.in);
 
-    // currentCity getter
-    public String getCurrentCity() {
-        return currentCity;
-    }
-
-    // currentCity setter
-    public void setCurrentCity(String currentCity) {
-        this.currentCity = currentCity;
+    // 도시 이동 메소드
+    public void walkCity() {
+        // 트레이너의 현재 위치 불러오기
+        currentCity = CityMap.cityMap.get(this.currentCity);
+        // 이동 가능한 도시 목록 출력
+        System.out.println("이동 가능한 도시 목록:");
+        currentCity.getConnectedCities().forEach(city -> System.out.println("- " + city.getCityName()));
+        // 이동할 도시 선택
+        System.out.println("이동할 도시를 선택하세요:");
+        String targetCity = inputReader.nextLine().trim();
+        // 존재하는 도시인지 확인
+        if (!CityMap.cityMap.containsKey(targetCity)) {
+            System.out.println("해당 도시가 존재하지 않습니다.");
+            return;
+        }
+        // 이동 가능한 도시인지 확인
+        if (!currentCity.getConnectedCities().contains(CityMap.cityMap.get(targetCity))) {
+            System.out.println("해당 도시로 이동할 수 없습니다.");
+            return;
+        }
+        // 선택한 도시로 이동
+        this.currentCity = CityMap.cityMap.get(targetCity);
+        System.out.println(targetCity + "(으)로 이동했습니다.");
     }
 
     // 트레이너 생성자: 초기 포켓몬 제공

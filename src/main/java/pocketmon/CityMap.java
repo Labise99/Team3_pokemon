@@ -28,26 +28,9 @@ public class CityMap {
             "달맞이동산", moonHill
     );
 
-    // 도시 이동 메소드
-    public void walkCity(Trainer trainer) {
-        // 트레이너의 현재 위치 불러오기
-        City currentCity = cityMap.get(trainer.getCurrentCity());
-        // 이동 가능한 도시 목록 출력
-        System.out.println("이동 가능한 도시 목록:");
-        for (City connectedCity : currentCity.getConnectedCities()) {
-            System.out.println("- " + connectedCity.getCityName());
-        }
-        // 이동할 도시 선택
-        System.out.print("이동할 도시를 선택하세요: ");
-        String selectedCity = inputReader.nextLine();
-        // 선택한 도시로 이동
-        if (currentCity.getConnectedCities().contains(cityMap.get(selectedCity))) {
-            trainer.setCurrentCity(selectedCity);
-            System.out.println(selectedCity + "(으)로 이동하였습니다.");
-        } else if(cityMap.containsKey(selectedCity)) {
-            System.out.println("이동할 수 없는 도시입니다.");
-        } else {
-            System.out.println("존재하지 않는 도시입니다.");
-        }
-    }
+    // fly, surf도 결국 위치 이동인데 여기서 케어를 해야 하나?
+    // 그렇다고 하면 FlyPokemon, SurfPokemon의 존재의의가 없는데?
+    // 해결 : walk는 트레이너가 하는 행동, fly랑 surf는 포켓몬이 하는 행동
+    // 따라서 fly, surf는 각각 FlyPokemon, SurfPokemon 클래스에 구현, walk는 Trainer에 구현
+    // CityMap은 도시와 지도 정보만 총괄!
 }
