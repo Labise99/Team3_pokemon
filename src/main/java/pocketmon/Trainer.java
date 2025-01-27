@@ -5,6 +5,8 @@ import java.util.*;
 public class Trainer implements ITrainer {
     private List<Pokemon> capturedPokemonList = new ArrayList<>();
     private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
+    private String currentCity; // 현재 위치
+
     private Scanner inputReader = new Scanner(System.in);
 
     // 트레이너 생성자: 초기 포켓몬 제공
