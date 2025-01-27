@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 public class Pokemon implements IPokemon {
@@ -14,29 +15,29 @@ public class Pokemon implements IPokemon {
     private int HP;
     private int level;
 
-    // 타입 확인 메서드
-    @Getter
-    private List<String> types; // 포켓몬 타입 목록
+    private List<String> types; // 타입 목록
 
     public Pokemon(String pokemonName, int HP, int level) {
         this.pokemonName = pokemonName;
         this.HP = HP;
         this.level = level;
-        this.types = new ArrayList<>(); // 타입 목록 초기화
+        this.types = new ArrayList<>(); // 타입 초기화
     }
 
-    // 트레이드 상황에서 랜덤 타입 추가 메서드
+    // 타입 추가 메서드
     public void typeAdd() {
         // 타입 목록
-        List<String> availableTypes = List.of("WATER", "FIRE", "EARTH", "SKY", "LEGENDARY", "MYSTIC", "NORMAL", "ELECTRIC");
+        List<String> availableTypes = List.of("WATER", "FIRE", "EARTH", "SKY", "NORMAL", "ELECTRIC");
 
         // 랜덤 타입 선택
-        String randomType = availableTypes.get((int) (Math.random() * availableTypes.size()));
+        String randomType = availableTypes.get(new Random().nextInt(availableTypes.size()));
 
         // 타입 추가
         if (!types.contains(randomType)) {
             types.add(randomType);
             System.out.println(this.pokemonName + "에 새로운 타입이 추가되었습니다: " + randomType);
+        } else {
+            System.out.println(this.pokemonName + "은(는) 이미 타입 " + randomType + "을(를) 가지고 있습니다.");
         }
     }
 
@@ -58,8 +59,7 @@ public class Pokemon implements IPokemon {
 
     @Override
     public Pokemon evolve() {
-        System.out.println(this.pokemonName + "이(가) 진화합니다!");
-        return new EvolvedPokemon(this.pokemonName + " 진화형", this.HP + 20, this.level + 1);
+        return null;
     }
 
     @Override

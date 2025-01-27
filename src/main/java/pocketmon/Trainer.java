@@ -1,19 +1,26 @@
 package pocketmon;
 
+import lombok.Getter;
+
 import java.util.*;
 
+@Getter
 public class Trainer implements ITrainer {
-    private List<Pokemon> capturedPokemonList = new ArrayList<>();
-    private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
+    public String name;
+    //상대 트레이너 포켓몬 조회 위해 private => public 으로 교체
+    public List<Pokemon> capturedPokemonList = new ArrayList<>();
+    public Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private Scanner inputReader = new Scanner(System.in);
 
     // 트레이너 생성자: 초기 포켓몬 제공
-    public Trainer() {
+    public Trainer(String name) {
+        this.name = name;
         Pokemon starterPokemon = new Pokemon("꼬부기", 50, 5);
         capturedPokemonList.add(starterPokemon);
         capturedPokemonByName.put(starterPokemon.getPokemonName(), starterPokemon);
         System.out.println("초기 포켓몬으로 " + starterPokemon.getPokemonName() + "(이)가 제공되었습니다!");
     }
+
 
     @Override
     public Pokemon encounterWildPokemon() {
@@ -59,16 +66,60 @@ public class Trainer implements ITrainer {
         }
     }
 
+    //보유 포켓몬 리스트
     public void showOwnedPokemon() {
         if (capturedPokemonList.isEmpty()) {
             System.out.println("현재 소유한 포켓몬이 없습니다.");
             return;
         }
 
-        System.out.println("=== 현재 가진 포켓몬 목록 ===");
+        System.out.println("=== " + this.getName() + " 포켓몬 목록 ===");
         capturedPokemonList.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()
                 + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
     }
+
+//    //대상 트레이너 지정
+//    public void chooseTrainer(String trainer) {
+//
+//    }
+
+    // 포켓몬 교환 메서드
+    public void tradePokemon(Trainer otherTrainer, String tgPokemonName, String myPokemonName) {
+        // 내 포켓몬과 상대 포켓몬 검색
+        Pokemon myPokemon = capturedPokemonByName.get(myPokemonName);
+        Pokemon theirPokemon = otherTrainer.capturedPokemonByName.get(tgPokemonName);
+
+        if (myPokemon == null) {
+            System.out.println("교환 실패: 당신은 " + myPokemonName + "을(를) 가지고 있지 않습니다.");
+            return;
+        }
+        if (theirPokemon == null) {
+            System.out.println("교환 실패: 상대는 " + tgPokemonName + "을(를) 가지고 있지 않습니다.");
+            return;
+        }
+
+        // 트레이드 진행
+        System.out.println("트레이딩을 시작합니다! --- " + myPokemonName + " <-> " + tgPokemonName + " ---");
+        capturedPokemonList.remove(myPokemon);
+        otherTrainer.capturedPokemonList.remove(theirPokemon);
+
+        capturedPokemonList.add(theirPokemon);
+        otherTrainer.capturedPokemonList.add(myPokemon);
+
+        // 맵 업데이트
+        capturedPokemonByName.remove(myPokemonName);
+        otherTrainer.capturedPokemonByName.remove(tgPokemonName);
+
+        capturedPokemonByName.put(theirPokemon.getPokemonName(), theirPokemon);
+        otherTrainer.capturedPokemonByName.put(myPokemon.getPokemonName(), myPokemon);
+
+        // 교환 후 효과 (예: 타입 변경)
+        myPokemon.typeAdd();
+        theirPokemon.typeAdd();
+
+        System.out.println("교환 성공! " + myPokemonName + "과 " + tgPokemonName + "이(가) 교환되었습니다.");
+    }
+
 
     @Override
     public Map<String, Pokemon> searchDex(PokeDex.PokeCategory category) {
