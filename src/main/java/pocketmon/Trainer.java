@@ -174,7 +174,7 @@ public class Trainer implements ITrainer {
 
     @Override
     public void hunt(Pokemon wildPokemon) {
-        
+
     }
 
     @Override
