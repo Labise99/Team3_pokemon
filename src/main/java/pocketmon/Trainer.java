@@ -62,10 +62,32 @@ public class Trainer implements ITrainer {
                 new SurfPokemon("잉어킹", 25, 2),
                 new LegendPokemon("루기아", 120, 20),
                 new MysticPokemon("뮤츠", 150, 30),
-                new SurfPokemon("꼬부기", 20,3)
-        );
+                new SurfPokemon("꼬부기", 20,3),
+                new LunaPokemon("푸린", 30, 20),
+                new LunaPokemon("삐삐", 40, 20));
         Random random = new Random();
         return wildPokemons.get(random.nextInt(wildPokemons.size()));
+    }
+
+    // 달 맞이 동산 도착
+    public void arriveAtMoonriseHill() {
+        System.out.println("트레이너가 달맞이 동산에 도착했습니다!");
+
+        boolean hasLunaPokemon = false;
+
+        for (Pokemon pokemon : capturedPokemonList) {
+            if (pokemon instanceof LunaPokemon) {
+                hasLunaPokemon = true;
+                LunaPokemon lunaPokemon = (LunaPokemon) pokemon;
+                if (!lunaPokemon.isEvolved()) {
+                    lunaPokemon.evolve(); // 진화 실행
+                }
+            }
+        }
+
+        if (!hasLunaPokemon) {
+            System.out.println("트레이너는 진화 가능한 푸린이나 삐삐를 소유하고 있지 않습니다.");
+        }
     }
 
     public void showSpecialAbilityPokemon() {
@@ -273,4 +295,5 @@ public class Trainer implements ITrainer {
         }
         return result;
     }
+
 }
