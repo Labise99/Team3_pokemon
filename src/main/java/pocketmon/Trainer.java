@@ -3,7 +3,8 @@ package pocketmon;
 import java.util.*;
 
 public class Trainer implements ITrainer {
-    private List<Pokemon> capturedPokemonList = new ArrayList<>();
+    //상대 트레이너 포켓몬 조회 위해 private => public 으로 교체
+    public List<Pokemon> capturedPokemonList = new ArrayList<>();
     private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private Scanner inputReader = new Scanner(System.in);
 
@@ -59,6 +60,7 @@ public class Trainer implements ITrainer {
         }
     }
 
+    //보유 포켓몬 리스트
     public void showOwnedPokemon() {
         if (capturedPokemonList.isEmpty()) {
             System.out.println("현재 소유한 포켓몬이 없습니다.");
@@ -68,6 +70,31 @@ public class Trainer implements ITrainer {
         System.out.println("=== 현재 가진 포켓몬 목록 ===");
         capturedPokemonList.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()
                 + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
+    }
+
+//    //대상 트레이너 지정
+//    public void chooseTrainer(String trainer) {
+//
+//    }
+
+    //대상 포켓몬 가져오기
+    public void tradePokemon(Trainer trainer, String tgPokemon, String myPokemon) {
+        //String 으로 이름 받고
+        //포켓몬 검색
+        if (tgPokemon == trainer.capturedPokemonByName.get(tgPokemon).getPokemonName()) {
+            if (myPokemon == this.capturedPokemonByName.get(myPokemon).getPokemonName()) {
+                //맞는 포켓몬 내 리스트에 추가
+                this.capturedPokemonList.add(trainer.capturedPokemonByName.get(tgPokemon));
+                //상대 포켓몬 리스트에서 포켓몬 제거
+                trainer.capturedPokemonByName.remove(tgPokemon);
+                //상대 리스트에 내 포켓몬 추가
+                trainer.capturedPokemonList.add(this.capturedPokemonByName.get(myPokemon));
+                //내 리스트에서 포켓몬 제거
+                this.capturedPokemonByName.remove(myPokemon);
+            }
+        } else {
+            System.out.println("대상에게 없는 포켓몬 입니다.");
+        }
     }
 
     @Override
