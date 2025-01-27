@@ -20,5 +20,11 @@ public class City {
     // lombok을 통해 getter 생성, 도시 이름과 이동 가능한 도시는 해당 getter로 접근 가능
     // 더미 데이터로는 태초마을과 달맞이동산만 있으면 충분할 것
 
-
+    // 이동 메서드
+    public void moveCity(Trainer trainer) {
+        // 현재 트레이너의 위치 정보 확인
+        // 이동 가능한 도시 목록 출력
+        // 이동할 도시 선택
+        // 선택한 도시로 이동
+    }
 }
