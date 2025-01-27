@@ -1,5 +1,5 @@
 package pocketmon;
 
 public interface ISurfable extends IOceanCrossable {
-    public void surf(String tgCity);
+    public void surf(City tgCity, Trainer trainer);
 }
