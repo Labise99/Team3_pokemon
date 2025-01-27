@@ -287,7 +287,7 @@ public class Trainer implements ITrainer {
         Thread.sleep(1000);
         System.out.print("2... ");
         Thread.sleep(1000);
-        System.out.println("1... 🚀");
+        System.out.println("1... ☆");
 
         trainer1List.remove(pokemon1);
         trainer2List.remove(pokemon2);
@@ -296,6 +296,10 @@ public class Trainer implements ITrainer {
 
         // 트레이딩 완료 후 리스트 업데이트
         System.out.println("축하합니다! 트레이딩이 완료되었습니다! \n");
+
+        // TODO: 트레이드 효과로 진화 및 속성 변화 구현!
+        ((ChangeCategoryPokemon) pokemon1).specialEvent(String.valueOf(pokemon1));
+        ((ChangeCategoryPokemon) pokemon2).specialEvent(String.valueOf(pokemon2));
 
         System.out.println("=== " + trainer1 + "의 포켓몬 목록 ===");
         trainer1List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
