@@ -22,3 +22,11 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+// 한글 깨짐 방지
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Test) {
+    systemProperty 'file.encoding', 'UTF-8'
+}
