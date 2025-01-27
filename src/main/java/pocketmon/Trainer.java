@@ -223,7 +223,7 @@ public class Trainer implements ITrainer {
     }
 
     // 리스트에서 포켓몬 검색 메소드 추가
-    public Pokemon findPokemonByName (List<Pokemon> PokemonList, String PokemonName) {
+    public static Pokemon findPokemonByName(List<Pokemon> PokemonList, String PokemonName) {
         for (Pokemon pokemon : PokemonList) {
             if (pokemon.getPokemonName().equals(PokemonName)) {
                 return pokemon;
@@ -233,13 +233,13 @@ public class Trainer implements ITrainer {
     }
 
     // 트레이딩
-    public void TradePokemon(Trainer trainer1, Trainer trainer2) {
-        List<Pokemon> trainer1List = this.getCapturedPokemonList();
+    public static void TradePokemon(Trainer trainer1, Trainer trainer2) {
+        List<Pokemon> trainer1List = trainer1.getCapturedPokemonList();
         List<Pokemon> trainer2List = trainer2.getCapturedPokemonList();
         Scanner tradeInput = new Scanner(System.in);
 
         // 교환할 포켓몬이 없다면 리턴
-        if (capturedPokemonList.isEmpty()) {
+        if (trainer1List.isEmpty()) {
             System.out.println("현재 소유한 포켓몬이 없습니다.");
             return;
         }
