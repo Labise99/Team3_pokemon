@@ -9,7 +9,17 @@ public class Trainer implements ITrainer {
 
     private Scanner inputReader = new Scanner(System.in);
 
-    // 도시 이동 메소드
+    // 현재 위치 getter
+    public City getCurrentCity() {
+        return currentCity;
+    }
+
+    // 현재 위치 setter
+    public void setCurrentCity(City currentCity) {
+        this.currentCity = currentCity;
+    }
+
+    // 도시 직접 이동 메소드
     public void walkCity() {
         // 트레이너의 현재 위치 불러오기
         currentCity = CityMap.cityMap.get(this.currentCity);
@@ -79,14 +89,26 @@ public class Trainer implements ITrainer {
             System.out.println("해당 포켓몬은 트레이너가 소유하고 있지 않습니다.");
             return;
         }
-        //
+        if (!(pokemon instanceof FlyPokemon || pokemon instanceof SurfPokemon)) {
+            System.out.println("해당 포켓몬은 특수 능력을 사용할 수 없습니다.");
+            return;
+        }
+        // 목표 도시 입력
+        System.out.println("이동할 도시를 입력하세요:");
+        String tgCityName = inputReader.nextLine().trim();
+        // 목표 도시가 존재하는지 확인
+        if (!CityMap.cityMap.containsKey(tgCityName)) {
+            System.out.println("해당 도시가 존재하지 않습니다.");
+            return;
+        }
+        City targetCity = CityMap.cityMap.get(tgCityName);
 
+        // FlyPokemon이면 fly 메소드 호출, SurfPokemon이면 surf 메소드 호출
         if (pokemon instanceof FlyPokemon) {
-            ((FlyPokemon) pokemon).fly("도시");
-        } else if (pokemon instanceof SurfPokemon) {
-            ((SurfPokemon) pokemon).surf("바다");
-        } else {
-            System.out.println(pokemon.getPokemonName() + "은(는) 특수 능력을 사용할 수 없습니다.");
+            ((FlyPokemon) pokemon).fly(targetCity, this);
+        }
+        if (pokemon instanceof SurfPokemon) {
+            ((SurfPokemon) pokemon).surf(targetCity, this);
         }
     }
 
