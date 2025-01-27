@@ -1,23 +1,25 @@
 package pocketmon;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class GameLauncher {
     public static void main(String[] args) {
-        //트레이너 더미데이터 생성
+        // 트레이너 더미 데이터 생성
         Map<Integer, Trainer> trainerList = new HashMap<>();
         Trainer trainer1 = new Trainer("한지우");
         Trainer trainer2 = new Trainer("오박사");
         Scanner scanner = new Scanner(System.in);
 
-        //트레이너 더미데이터 생성
+        // 트레이너 리스트 생성
         trainerList.put(1, trainer1);
         trainerList.put(2, trainer2);
 
-        //트레이너가 보유한 포켓몬 더미데이터
-        Pokemon pikachu = new Pokemon("피카츄", 50, 5);
-        trainer2.capturedPokemonList.add(pikachu);
-        trainer2.capturedPokemonByName.put(pikachu.getPokemonName(), pikachu);
+        // 트레이너가 보유한 포켓몬 더미 데이터
+        Pokemon pikachu = new Pokemon("피카츄", 50, 5); // 피카츄 생성
+        trainer2.capturedPokemonList.add(pikachu); // 오박사 포켓몬 리스트에 추가
+        trainer2.capturedPokemonByName.put(pikachu.getPokemonName(), pikachu); // 오박사 포켓몬 맵에 추가
 
         while (true) {
             System.out.println("\n==== 포켓몬 게임 ====");
@@ -25,7 +27,6 @@ public class GameLauncher {
             System.out.println("2: 도감 검색");
             System.out.println("3: 포켓몬 특수 능력 사용");
             System.out.println("4: 현재 가진 포켓몬 보기");
-            //포켓몬 트레이드 기능
             System.out.println("5: 포켓몬 교환하기");
             System.out.println("6: 종료");
             System.out.print("원하는 기능을 선택하세요: ");
@@ -57,24 +58,14 @@ public class GameLauncher {
                     break;
 
                 case "5":
-                    //TODO : 포켓몬 교환 메소드 호출
-                    //상대 포켓몬 리스트 출력
-                    System.out.println("\n교환 가능한 상대의 포켓몬 : ");
+                    // 포켓몬 교환 기능
+                    System.out.println("\n교환 가능한 상대의 포켓몬:");
                     trainer2.showOwnedPokemon();
-                    System.out.println("상대의 포켓몬 이름 : ");
-                    String tgPokemon = scanner.nextLine();
-                    Pokemon tgPoke = trainer2.capturedPokemonByName.get(tgPokemon);
-                    System.out.println("내 포켓몬 이름 : ");
-                    String myPokemon = scanner.nextLine();
-                    trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
-                    //진화 후 리스트 업데이트
-                    Pokemon evolvedPoke = tgPoke.evolve();
-
-                    trainer1.capturedPokemonByName.remove(tgPokemon);
-                    trainer1.capturedPokemonList.remove(tgPoke);
-                    trainer1.capturedPokemonByName.put(evolvedPoke.getPokemonName(), evolvedPoke); //이름 바꿔야함
-                    trainer1.capturedPokemonList.add(evolvedPoke);
-
+                    System.out.print("상대의 포켓몬 이름: ");
+                    String tgPokemon = scanner.nextLine().trim();
+                    System.out.print("내 포켓몬 이름: ");
+                    String myPokemon = scanner.nextLine().trim();
+                    trainer1.tradePokemon(trainer2, tgPokemon, myPokemon);
                     trainer1.showOwnedPokemon();
                     break;
 
@@ -83,6 +74,7 @@ public class GameLauncher {
                     System.out.println("게임을 종료합니다. 감사합니다!");
                     System.exit(0);
                     break;
+
                 default:
                     System.out.println("잘못된 입력입니다. 1, 2, 3, 4, 5 중에서 선택하세요.");
             }
