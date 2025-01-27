@@ -18,7 +18,7 @@ public class Trainer implements ITrainer {
         Pokemon starterPokemon = new Pokemon("꼬부기", 50, 5);
         capturedPokemonList.add(starterPokemon);
         capturedPokemonByName.put(starterPokemon.getPokemonName(), starterPokemon);
-        System.out.println("초기 포켓몬으로 " + starterPokemon.getPokemonName() + "(이)가 제공되었습니다!");
+//        System.out.println("초기 포켓몬으로 " + starterPokemon.getPokemonName() + "(이)가 제공되었습니다!");
     }
 
 
@@ -72,18 +72,13 @@ public class Trainer implements ITrainer {
             System.out.println("현재 소유한 포켓몬이 없습니다.");
             return;
         }
-
         System.out.println("=== " + this.getName() + " 포켓몬 목록 ===");
         capturedPokemonList.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()
                 + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
     }
 
-//    //대상 트레이너 지정
-//    public void chooseTrainer(String trainer) {
-//
-//    }
 
-    //대상 포켓몬 가져오기
+    //포켓몬 트레이드 메소드
     public void tradePokemon(Trainer trainer, String tgPokemon, String myPokemon) {
         //String 으로 이름 받고
         //검색 후 Pokemon 타입으로 받기
@@ -98,13 +93,13 @@ public class Trainer implements ITrainer {
             } else {
                 //상대 리스트에 내 포켓몬 추가
                 trainer.capturedPokemonList.add(myPoke);
-                //상대 포켓몬 리스트에서 포켓몬 제거
+                //상대 리스트에서 교환된 포켓몬 제거
                 trainer.capturedPokemonByName.remove(tgPokemon);
                 trainer.capturedPokemonList.remove(tgPoke);
 
-                //상대 포켓몬 내 리스트에 추가
+                //내 리스트에 상대 포켓몬 추가
                 this.capturedPokemonList.add(tgPoke);
-                //내 리스트에서 포켓몬 제거
+                //내 리스트에서 교환된 포켓몬 제거
                 this.capturedPokemonByName.remove(myPokemon);
                 this.capturedPokemonList.remove(myPoke);
                 System.out.println("교환 성공!");

@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 public class Pokemon implements IPokemon {
+
     private String pokemonName;
     // 추가된 setHP 메서드
-    @Setter
     private int HP;
     private int level;
 
@@ -37,7 +38,7 @@ public class Pokemon implements IPokemon {
     @Override
     public Pokemon evolve() {
         System.out.println(this.pokemonName + "이(가) 진화합니다!");
-        return new EvolvedPokemon(this.pokemonName + " 진화형", this.HP + 20, this.level + 1);
+        return new EvolvedPokemon(this.getPokemonName() + " 진화형", this.getHP() + 20, this.getLevel() + 1);
     }
 
 }

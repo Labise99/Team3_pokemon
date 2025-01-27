@@ -63,15 +63,17 @@ public class GameLauncher {
                     trainer2.showOwnedPokemon();
                     System.out.println("상대의 포켓몬 이름 : ");
                     String tgPokemon = scanner.nextLine();
+                    Pokemon tgPoke = trainer2.capturedPokemonByName.get(tgPokemon);
                     System.out.println("내 포켓몬 이름 : ");
                     String myPokemon = scanner.nextLine();
                     trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
+                    //진화 후 리스트 업데이트
+                    trainer1.capturedPokemonByName.remove(tgPokemon);
+                    trainer1.capturedPokemonList.remove(tgPoke);
+                    trainer1.capturedPokemonByName.put(tgPoke.evolve().getPokemonName(), tgPoke.evolve()); //이름 바꿔야함
+                    trainer1.capturedPokemonList.add(tgPoke.evolve());
+
                     trainer1.showOwnedPokemon();
-
-
-//                    System.out.println("교환신청 할 대상 트레이너를 고르세요!");
-//                    //TODO : value값이 HashCode로 출력됨(수정 필요)
-//                    trainerList.forEach((key, value) -> { System.out.println(key + " : " + value);});
                     break;
 
                 case "6":
