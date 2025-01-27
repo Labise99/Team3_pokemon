@@ -4,8 +4,12 @@ import java.util.Scanner;
 
 public class GameLauncher {
     public static void main(String[] args) {
-        Trainer trainer = new Trainer();
+        Trainer trainer1 = new Trainer();
+        Trainer trainer2 = new Trainer();
         Scanner scanner = new Scanner(System.in);
+
+        System.out.print("헬로");
+        Trainer.TradePokemon(trainer1, trainer2);
 
         while (true) {
             System.out.println("\n==== 포켓몬 게임 ====");
@@ -20,26 +24,26 @@ public class GameLauncher {
             switch (choice) {
                 case "1":
                     // 전투 기능
-                    Pokemon wildPokemon = trainer.encounterWildPokemon();
-                    trainer.hunt(wildPokemon);
+                    Pokemon wildPokemon = trainer1.encounterWildPokemon();
+                    trainer1.hunt(wildPokemon);
                     break;
 
                 case "2":
                     // 도감 검색 기능
-                    trainer.explorePokeDex();
+                    trainer1.explorePokeDex();
                     break;
 
                 case "3":
                     // 특수 능력 사용
-                    trainer.showSpecialAbilityPokemon();
+                    trainer1.showSpecialAbilityPokemon();
                     System.out.println("특수 능력을 사용할 포켓몬 이름을 입력하세요:");
                     String specialPokemonName = scanner.nextLine().trim();
-                    trainer.useSpecialAbility(specialPokemonName);
+                    trainer1.useSpecialAbility(specialPokemonName);
                     break;
 
                 case "4":
                     // 현재 가진 포켓몬 보기
-                    trainer.showOwnedPokemon();
+                    trainer1.showOwnedPokemon();
                     break;
 
                 case "5":
@@ -50,6 +54,7 @@ public class GameLauncher {
                 default:
                     System.out.println("잘못된 입력입니다. 1, 2, 3, 4, 5 중에서 선택하세요.");
             }
+
         }
     }
 }
