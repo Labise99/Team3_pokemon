@@ -14,6 +14,11 @@ public class Trainer implements ITrainer {
         return currentCity;
     }
 
+    // currentCity setter
+    public void setCurrentCity(String currentCity) {
+        this.currentCity = currentCity;
+    }
+
     // 트레이너 생성자: 초기 포켓몬 제공
     public Trainer() {
         Pokemon starterPokemon = new Pokemon("꼬부기", 50, 5);
