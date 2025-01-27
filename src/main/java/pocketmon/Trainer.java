@@ -72,11 +72,15 @@ public class Trainer implements ITrainer {
     }
 
     public void useSpecialAbility(String pokemonName) {
+        // 소유한 포켓몬 중 이름으로 찾기
         Pokemon pokemon = capturedPokemonByName.get(pokemonName);
+        // 해당 포켓몬이 없으면 메시지 출력 후 종료
         if (pokemon == null) {
             System.out.println("해당 포켓몬은 트레이너가 소유하고 있지 않습니다.");
             return;
         }
+        //
+
         if (pokemon instanceof FlyPokemon) {
             ((FlyPokemon) pokemon).fly("도시");
         } else if (pokemon instanceof SurfPokemon) {
