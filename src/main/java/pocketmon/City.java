@@ -2,18 +2,23 @@ package pocketmon;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class City {
     // 도시 정보 관련 클래스
     private String cityName; // 도시 이름
-    private List<City> connectedCities; // 연결된 도시 목록
+    private List<City> connectedCities = new ArrayList<>(); // 연결된 도시 목록
 
     // 생성자
-    public City(String cityName, List<City> connectedCities) {
+    public City(String cityName) {
         this.cityName = cityName;
-        this.connectedCities = connectedCities;
+    }
+
+    // 도시 연결 메서드
+    public void connectCity(City city) {
+        connectedCities.add(city);
     }
 
     // 그럼 이제 무슨 메서드가 필요할 것인가
