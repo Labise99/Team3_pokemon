@@ -1,8 +1,7 @@
 package pocketmon;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.*;
 
 public class GameLauncher {
     public static void main(String[] args) {
@@ -27,6 +26,7 @@ public class GameLauncher {
             System.out.println("2: 도감 검색");
             System.out.println("3: 포켓몬 특수 능력 사용");
             System.out.println("4: 현재 가진 포켓몬 보기");
+            //포켓몬 트레이드 기능
             System.out.println("5: 포켓몬 교환하기");
             System.out.println("6: 종료");
             System.out.print("원하는 기능을 선택하세요: ");
@@ -58,14 +58,24 @@ public class GameLauncher {
                     break;
 
                 case "5":
-                    // 포켓몬 교환 기능
+                    //TODO : 포켓몬 교환 메소드 호출
+                    //상대 포켓몬 리스트 출력
                     System.out.println("\n교환 가능한 상대의 포켓몬 : ");
                     trainer2.showOwnedPokemon();
-                    System.out.print("상대의 포켓몬 이름: ");
+                    System.out.println("상대의 포켓몬 이름 : ");
                     String tgPokemon = scanner.nextLine();
-                    System.out.print("내 포켓몬 이름: ");
+                    Pokemon tgPoke = trainer2.capturedPokemonByName.get(tgPokemon);
+                    System.out.println("내 포켓몬 이름 : ");
                     String myPokemon = scanner.nextLine();
-                    trainer1.tradePokemon(trainer2, tgPokemon, myPokemon);
+                    trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
+                    //진화 후 리스트 업데이트
+                    Pokemon evolvedPoke = tgPoke.evolve();
+
+                    trainer1.capturedPokemonByName.remove(tgPokemon);
+                    trainer1.capturedPokemonList.remove(tgPoke);
+                    trainer1.capturedPokemonByName.put(evolvedPoke.getPokemonName(), evolvedPoke); //이름 바꿔야함
+                    trainer1.capturedPokemonList.add(evolvedPoke);
+
                     trainer1.showOwnedPokemon();
                     break;
 

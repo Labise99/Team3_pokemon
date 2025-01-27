@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 @Getter
+@Setter
 public class Pokemon implements IPokemon {
-    private String pokemonName;
 
-    @Setter
+    private String pokemonName;
+    // 추가된 setHP 메서드
     private int HP;
     private int level;
 
@@ -41,6 +42,7 @@ public class Pokemon implements IPokemon {
         }
     }
 
+
     @Override
     public void attack(Pokemon tgPokemon) {
         int damage = (int) (Math.random() * 10) + 5;
@@ -59,7 +61,8 @@ public class Pokemon implements IPokemon {
 
     @Override
     public Pokemon evolve() {
-        return null;
+        System.out.println(this.pokemonName + "이(가) 진화합니다!");
+        return new EvolvedPokemon(this.getPokemonName() + " 진화형", this.getHP() + 20, this.getLevel() + 1);
     }
 
     @Override
