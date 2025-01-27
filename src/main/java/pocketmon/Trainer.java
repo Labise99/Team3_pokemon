@@ -5,7 +5,9 @@ import java.util.*;
 public class Trainer implements ITrainer {
     private List<Pokemon> capturedPokemonList = new ArrayList<>();
     private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
-    private City currentCity; // 현재 위치
+    private City currentCity = CityMap.cityMap.get("태초마을"); // 현재 위치
+    // 테스트를 위해 기본 위치를 태초마을로 지정
+    // 추후 트레이너 객체 생성 시 위치를 따로 지정할 수 있도록 수정해야함
 
     private Scanner inputReader = new Scanner(System.in);
 
