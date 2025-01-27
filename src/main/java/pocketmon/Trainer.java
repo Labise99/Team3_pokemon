@@ -215,7 +215,14 @@ public class Trainer implements ITrainer {
         return result;
     }
 
-    public void addPokemon(Pokemon pikachu) {
+    // 리스트에서 포켓몬 검색 메소드 추가
+    public static Pokemon findPokemonByName(List<Pokemon> PokemonList, String PokemonName) {
+        for (Pokemon pokemon : PokemonList) {
+            if (pokemon.getPokemonName().equals(PokemonName)) {
+                return pokemon;
+            }
+        }
+        return null;
     }
 
     // 트레이딩
