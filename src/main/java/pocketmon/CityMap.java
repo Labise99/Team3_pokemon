@@ -10,7 +10,6 @@ public class CityMap {
     // 도시 이동 메소드
     public void moveCity(Trainer trainer) {
         // 현재 트레이너의 위치 정보 확인
-
         // 이동 가능한 도시 목록 출력
         // 이동할 도시 선택
         // 선택한 도시로 이동
