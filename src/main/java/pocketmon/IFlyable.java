@@ -1,5 +1,5 @@
 package pocketmon;
 
 public interface IFlyable extends IOceanCrossable {
-    public void fly(String tgCity);
+    public void fly(City tgCity, Trainer trainer);
 }
