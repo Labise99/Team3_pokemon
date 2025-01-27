@@ -14,8 +14,6 @@ public class Trainer implements ITrainer {
     // 추후 트레이너 객체 생성 시 위치를 따로 지정할 수 있도록 수정해야함
 
     public String name;
-    public List<Pokemon> capturedPokemonList = new ArrayList<>();
-    public Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private Scanner inputReader = new Scanner(System.in);
 
     // 현재 위치 getter
@@ -77,29 +75,36 @@ public class Trainer implements ITrainer {
         return wildPokemons.get(random.nextInt(wildPokemons.size()));
     }
 
-    // 달 맞이 동산 도착
     public void arriveAtMoonHill() {
         System.out.println("트레이너가 달맞이 동산에 도착했습니다!");
 
         boolean hasLunaPokemon = false;
 
-        for (Pokemon pokemon : capturedPokemonList) {
+        Iterator<Pokemon> iterator = capturedPokemonList.iterator();
+        List<EvolvedPokemon> evolvedPokemons = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            Pokemon pokemon = iterator.next();
             if (pokemon instanceof LunaPokemon) {
                 hasLunaPokemon = true;
                 LunaPokemon lunaPokemon = (LunaPokemon) pokemon;
                 if (!lunaPokemon.isEvolved()) {
                     // 진화 실행
                     EvolvedPokemon evolvedPokemon = lunaPokemon.evolve();
-                    capturedPokemonList.remove(lunaPokemon);
-                    capturedPokemonList.add(evolvedPokemon);
+                    iterator.remove(); // 안전하게 현재 항목 제거
+                    evolvedPokemons.add(evolvedPokemon); // 나중에 추가할 항목 저장
                 }
             }
         }
+
+        // 진화된 포켓몬 추가
+        capturedPokemonList.addAll(evolvedPokemons);
 
         if (!hasLunaPokemon) {
             System.out.println("트레이너는 진화 가능한 푸린이나 삐삐를 소유하고 있지 않습니다.");
         }
     }
+
 
     public void showSpecialAbilityPokemon() {
         System.out.println("=== 특수 능력을 가진 포켓몬 목록 ===");
@@ -262,7 +267,56 @@ public class Trainer implements ITrainer {
 
     @Override
     public void hunt(Pokemon wildPokemon) {
+        System.out.println("야생 포켓몬 " + wildPokemon.getPokemonName() + "(이)가 나타났습니다!");
+        while (wildPokemon.getHP() > 0) {
+            System.out.println("1: 공격 / 2: 포획 / 3: 도망");
+            String input = inputReader.nextLine().trim();
+            if (!input.matches("[123]")) {
+                System.out.println("잘못된 입력입니다. 1, 2, 3 중에서 선택하세요.");
+                continue;
+            }
 
+            int choice = Integer.parseInt(input);
+            if (choice == 1) {
+                attackWildPokemon(wildPokemon);
+                if (wildPokemon.getHP() == 0) {
+                    System.out.println("야생 " + wildPokemon.getPokemonName() + "(이)가 기절했습니다.");
+                    break;
+                }
+            } else if (choice == 2) {
+                Pokemon capturedPokemon = capture(wildPokemon);
+                if (capturedPokemon != null) {
+                    System.out.println(capturedPokemon.getPokemonName() + "(을)를 포획했습니다!");
+                    break;
+                } else {
+                    System.out.println("포획에 실패했습니다!");
+                }
+            } else if (choice == 3) {
+                System.out.println("트레이너가 도망쳤습니다.");
+                break;
+            }
+        }
+        System.out.println("전투 종료. 남은 포켓몬 상태 요약:");
+        capturedPokemonList.forEach(p -> System.out.println(p.getPokemonName() + " - HP: " + p.getHP()));
+    }
+    public void attackWildPokemon(Pokemon wildPokemon) {
+        Pokemon myPokemon = capturedPokemonList.get(0); // 첫 번째 포켓몬 사용
+
+        // 데미지 계산
+        Random random = new Random();
+        int damageToWild = random.nextInt(10) + 5; // 5~15 데미지
+        int damageToTrainer = random.nextInt(8) + 3; // 3~10 데미지
+
+        wildPokemon.setHP(Math.max(0, wildPokemon.getHP() - damageToWild));
+        myPokemon.setHP(Math.max(0, myPokemon.getHP() - damageToTrainer));
+
+        // 전투 상태 출력
+        System.out.println("전투 정보: " + myPokemon.getPokemonName() + " → " + damageToWild + " 데미지 입힘. 야생 포켓몬 남은 HP: " + wildPokemon.getHP());
+        System.out.println("전투 정보: " + wildPokemon.getPokemonName() + " → " + damageToTrainer + " 데미지 입음. 내 포켓몬 남은 HP: " + myPokemon.getHP());
+
+        if (myPokemon.getHP() == 0) {
+            System.out.println(myPokemon.getPokemonName() + "(이)가 기절했습니다. 다른 포켓몬을 사용하세요!");
+        }
     }
 
     @Override

@@ -18,8 +18,8 @@ public class GameLauncher {
 
         // 트레이너가 보유한 포켓몬 더미 데이터
         Pokemon pikachu = new Pokemon("피카츄", 50, 5); // 피카츄 생성
-        trainer2.capturedPokemonList.add(pikachu); // 오박사 포켓몬 리스트에 추가
-        trainer2.capturedPokemonByName.put(pikachu.getPokemonName(), pikachu); // 오박사 포켓몬 맵에 추가
+        trainer2.getCapturedPokemonList().add(pikachu); // 오박사 포켓몬 리스트에 추가
+        trainer2.getCapturedPokemonByName().put(pikachu.getPokemonName(), pikachu); // 오박사 포켓몬 맵에 추가
 
         while (true) {
             System.out.println("\n==== 포켓몬 게임 ====");
