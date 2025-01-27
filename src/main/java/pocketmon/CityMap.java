@@ -1,11 +1,19 @@
 package pocketmon;
 
+import java.util.Map;
+
 public class CityMap {
     // 지도 및 위치 이동 관련 클래스
 
     // 도시 선언
     City palletTown = new City("태초마을", null); // ?? : 태초마을이야!
     City moonHill = new City("달맞이동산", null);
+
+    // 도시 목록
+    Map<String, City> cityMap = Map.of(
+            "태초마을", palletTown,
+            "달맞이동산", moonHill
+    );
 
     // 도시 이동 메소드
     public void moveCity(Trainer trainer) {
