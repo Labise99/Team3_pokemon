@@ -10,7 +10,7 @@ public class GameLauncher {
         Trainer trainer2 = new Trainer("오박사");
         Scanner scanner = new Scanner(System.in);
 
-        //트레이너 리스트 생성
+        //트레이너 더미데이터 생성
         trainerList.put(1, trainer1);
         trainerList.put(2, trainer2);
 
@@ -68,10 +68,12 @@ public class GameLauncher {
                     String myPokemon = scanner.nextLine();
                     trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
                     //진화 후 리스트 업데이트
+                    Pokemon evolvedPoke = tgPoke.evolve();
+
                     trainer1.capturedPokemonByName.remove(tgPokemon);
                     trainer1.capturedPokemonList.remove(tgPoke);
-                    trainer1.capturedPokemonByName.put(tgPoke.evolve().getPokemonName(), tgPoke.evolve()); //이름 바꿔야함
-                    trainer1.capturedPokemonList.add(tgPoke.evolve());
+                    trainer1.capturedPokemonByName.put(evolvedPoke.getPokemonName(), evolvedPoke); //이름 바꿔야함
+                    trainer1.capturedPokemonList.add(evolvedPoke);
 
                     trainer1.showOwnedPokemon();
                     break;

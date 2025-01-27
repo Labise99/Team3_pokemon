@@ -18,6 +18,7 @@ public class Pokemon implements IPokemon {
         this.level = level;
     }
 
+
     @Override
     public void attack(Pokemon tgPokemon) {
         // 랜덤 데미지 계산
