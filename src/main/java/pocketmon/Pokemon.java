@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Random;
 
 @Getter
-@Setter
 public class Pokemon implements IPokemon {
-
     private String pokemonName;
-    // 추가된 setHP 메서드
+
+    @Setter
     private int HP;
     private int level;
 
@@ -27,8 +26,12 @@ public class Pokemon implements IPokemon {
 
     // 타입 추가 메서드
     public void typeAdd() {
+        if (types == null) {
+            types = new ArrayList<>(); // 방어 코드 추가
+        }
+
         // 타입 목록
-        List<String> availableTypes = List.of("WATER", "FIRE", "EARTH", "SKY", "NORMAL", "ELECTRIC");
+        List<String> availableTypes = List.of("WATER", "FIRE", "EARTH", "SKY", "LEGENDARY", "MYSTIC", "NORMAL", "ELECTRIC");
 
         // 랜덤 타입 선택
         String randomType = availableTypes.get(new Random().nextInt(availableTypes.size()));
@@ -41,7 +44,6 @@ public class Pokemon implements IPokemon {
             System.out.println(this.pokemonName + "은(는) 이미 타입 " + randomType + "을(를) 가지고 있습니다.");
         }
     }
-
 
     @Override
     public void attack(Pokemon tgPokemon) {
@@ -61,12 +63,12 @@ public class Pokemon implements IPokemon {
 
     @Override
     public Pokemon evolve() {
-        System.out.println(this.pokemonName + "이(가) 진화합니다!");
-        return new EvolvedPokemon(this.getPokemonName() + " 진화형", this.getHP() + 20, this.getLevel() + 1);
+        System.out.println(this.pokemonName + "이(가) 진화했습니다!");
+        return new Pokemon(this.pokemonName + " 진화형", this.HP + 20, this.level + 1);
     }
 
     @Override
     public String toString() {
-        return this.pokemonName + " (HP: " + this.HP + ", Level: " + this.level + ", Types: " + this.types + ")";
+        return this.pokemonName + " (HP: " + this.HP + ", Level: " + this.level + ", Types: " + types + ")";
     }
 }
