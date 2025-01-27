@@ -70,7 +70,7 @@ public class Trainer implements ITrainer {
     }
 
     // 달 맞이 동산 도착
-    public void arriveAtMoonriseHill() {
+    public void arriveAtMoonHill() {
         System.out.println("트레이너가 달맞이 동산에 도착했습니다!");
 
         boolean hasLunaPokemon = false;
@@ -133,6 +133,11 @@ public class Trainer implements ITrainer {
         }
         if (pokemon instanceof SurfPokemon) {
             ((SurfPokemon) pokemon).surf(targetCity, this);
+        }
+
+        // 이동 지역이 달맞이동산이라면 arriveAtMoonHill 메소드 호출
+        if(this.currentCity.getCityName().equals("달맞이동산")){
+            arriveAtMoonHill();
         }
     }
 
