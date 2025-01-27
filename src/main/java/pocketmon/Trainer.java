@@ -80,7 +80,10 @@ public class Trainer implements ITrainer {
                 hasLunaPokemon = true;
                 LunaPokemon lunaPokemon = (LunaPokemon) pokemon;
                 if (!lunaPokemon.isEvolved()) {
-                    lunaPokemon.evolve(); // 진화 실행
+                    // 진화 실행
+                    EvolvedPokemon evolvedPokemon = lunaPokemon.evolve();
+                    capturedPokemonList.remove(lunaPokemon);
+                    capturedPokemonList.add(evolvedPokemon);
                 }
             }
         }
