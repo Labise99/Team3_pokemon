@@ -10,6 +10,7 @@ public class SurfPokemon extends Pokemon implements ISurfable {
 
     @Override
     public void surf(City tgCity, Trainer trainer) {
+        trainer.setCurrentCity(tgCity);
         System.out.println(this.getPokemonName() + "(이)가 " + tgCity + "로 서핑합니다!");
     }
 
