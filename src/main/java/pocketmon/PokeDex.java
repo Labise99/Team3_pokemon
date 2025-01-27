@@ -3,6 +3,24 @@ package pocketmon;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO
+//구현 기능
+//메소드1
+    //대상 트레이너 지정
+    //상대 포켓몬 리스트 검색
+
+//메소드2
+    //교환 대상 포켓몬 지정
+    //상대, 내 보유 포켓몬 리스트 업데이트
+
+    //진화, 속성변화 메소드 호출
+        // +@ : 교환 신청 수락
+
+//교환시 특수이벤트???
+    //진화 (기존 진화 메소드 재활용)
+    //속성변화 (포켓몬 타입 변화: 랜덤으로 변화)
+
+
 public class PokeDex {
     private static Map<String, Pokemon> pokemonByName = new HashMap<>();
     private static Map<PokeCategory, Map<String, Pokemon>> pokemonByCategory = new HashMap<>();
