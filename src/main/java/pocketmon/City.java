@@ -9,6 +9,7 @@ public class City {
     // 도시 정보 관련 클래스
     private String cityName; // 도시 이름
     private List<City> connectedCities; // 연결된 도시 목록
+    private List<Trainer> trainers; // 해당 도시에 있는 트레이너 목록
 
     // 생성자
     public City(String cityName, List<City> connectedCities) {
