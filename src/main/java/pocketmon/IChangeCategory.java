@@ -1,5 +1,5 @@
 package pocketmon;
 
-public interface IChangeCategory extends ISpecialEvent {
+public interface IChangeCategory {
     public void changeCategory(String pokemonName);
 }
