@@ -1,6 +1,7 @@
 package pocketmon;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.util.*;
 
@@ -215,5 +216,75 @@ public class Trainer implements ITrainer {
     }
 
     public void addPokemon(Pokemon pikachu) {
+    }
+
+    // 트레이딩
+    @SneakyThrows
+    public static void TradePokemon(Trainer trainer1, Trainer trainer2) {
+        List<Pokemon> trainer1List = trainer1.getCapturedPokemonList();
+        List<Pokemon> trainer2List = trainer2.getCapturedPokemonList();
+        Scanner tradeInput = new Scanner(System.in);
+
+        // 교환할 포켓몬이 없다면 리턴
+        if (trainer1List.isEmpty()) {
+            System.out.println("현재 소유한 포켓몬이 없습니다.");
+            return;
+        }
+
+        // 현재 포켓몬 리스트
+        // trainer.getName()
+        System.out.println("=== " + trainer1 + "의 포켓몬 목록 ===");
+        trainer1List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
+               // + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
+        System.out.println("=== " + trainer2 + "의 포켓몬 목록 ===");
+        trainer2List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
+                // + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
+
+        // 포켓몬 지정 - 이름 검색 -> 리스트에 해당 이름 포켓몬이 없다면 교환 실패
+        // 트레이너1이 선택할 포켓몬 이름 입력받기
+        System.out.print("교환하고 싶은 나의 포켓몬의 이름을 입력하세요: ");
+        String trainer1PokemonName = tradeInput.nextLine();
+
+        // 트레이너2가 교환할 포켓몬 이름 입력받기
+        System.out.print("교환하고 싶은 상대 포켓몬의 이름을 입력하세요: ");
+        String trainer2PokemonName = tradeInput.nextLine();
+
+        // 트레이너1과 트레이너2가 선택한 포켓몬을 이름으로 검색
+        Pokemon pokemon1 = findPokemonByName(trainer1List, trainer1PokemonName);
+        Pokemon pokemon2 = findPokemonByName(trainer2List, trainer2PokemonName);
+
+        // 포켓몬이 없다면 교환 실패 메시지 출력
+        if (pokemon1 == null) {
+            System.out.println("현재 " + trainer1PokemonName + "을(를) 소유하지 않습니다. 교환 실패!");
+            // 다시 선택하게 할 것인지?
+            return;
+        }
+        if (pokemon2 == null) {
+            System.out.println("상대는 " + trainer2PokemonName + "을(를) 소유하지 않습니다. 교환 실패!");
+            return;
+        }
+
+        // 트레이딩 시작
+        System.out.print("트레이딩을 시작합니다! ");
+        System.out.println(" --- " + pokemon1 + " <-> " + pokemon2 + " --- ");
+        Thread.sleep(1000);  // 1초 대기
+        System.out.print("3... ");
+        Thread.sleep(1000);
+        System.out.print("2... ");
+        Thread.sleep(1000);
+        System.out.println("1... 🚀");
+
+        trainer1List.remove(pokemon1);
+        trainer2List.remove(pokemon2);
+        trainer1List.add(pokemon1);
+        trainer2List.add(pokemon2);
+
+        // 트레이딩 완료 후 리스트 업데이트
+        System.out.println("축하합니다! 트레이딩이 완료되었습니다! \n");
+
+        System.out.println("=== " + trainer1 + "의 포켓몬 목록 ===");
+        trainer1List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
+        System.out.println("=== " + trainer2 + "의 포켓몬 목록 ===");
+        trainer2List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
     }
 }
