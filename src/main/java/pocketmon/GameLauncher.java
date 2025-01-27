@@ -58,16 +58,24 @@ public class GameLauncher {
                     break;
 
                 case "5":
-                    // 포켓몬 교환 기능
-                    System.out.println("\n교환 가능한 상대의 포켓몬:");
+                    //TODO : 포켓몬 교환 메소드 호출
+                    //상대 포켓몬 리스트 출력
+                    System.out.println("\n교환 가능한 상대의 포켓몬 : ");
                     trainer2.showOwnedPokemon();
-                    System.out.print("상대의 포켓몬 이름: ");
-                    String tgPokemon = scanner.nextLine().trim();
-                    System.out.print("내 포켓몬 이름: ");
-                    String myPokemon = scanner.nextLine().trim();
-                    trainer1.tradePokemon(trainer2, tgPokemon, myPokemon);
-                    trainer1.showOwnedPokemon();
-                    break;
+                    System.out.println("상대의 포켓몬 이름 : ");
+                    String tgPokemon = scanner.nextLine();
+                    Pokemon tgPoke = trainer2.getCapturedPokemonByName().get(tgPokemon);
+                    System.out.println("내 포켓몬 이름 : ");
+                    String myPokemon = scanner.nextLine();
+                    trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
+                    //진화 후 리스트 업데이트
+                    Pokemon evolvedPoke = tgPoke.evolve();
+
+                    trainer1.getCapturedPokemonByName().remove(tgPokemon);
+                    trainer1.getCapturedPokemonList().remove(tgPoke);
+                    trainer1.getCapturedPokemonByName().put(evolvedPoke.getPokemonName(), evolvedPoke); //이름 바꿔야함
+                    trainer1.getCapturedPokemonList().add(evolvedPoke);
+
 
                 case "6":
                     // 종료
