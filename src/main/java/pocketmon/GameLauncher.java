@@ -6,8 +6,8 @@ public class GameLauncher {
     public static void main(String[] args) {
         //트레이너 더미데이터 생성
         Map<Integer, Trainer> trainerList = new HashMap<>();
-        Trainer trainer1 = new Trainer();
-        Trainer trainer2 = new Trainer();
+        Trainer trainer1 = new Trainer("한지우");
+        Trainer trainer2 = new Trainer("오박사");
         Scanner scanner = new Scanner(System.in);
 
         //트레이너 리스트 생성
@@ -66,6 +66,7 @@ public class GameLauncher {
                     System.out.println("내 포켓몬 이름 : ");
                     String myPokemon = scanner.nextLine();
                     trainer1.tradePokemon(trainer2, tgPokemon,  myPokemon);
+                    trainer1.showOwnedPokemon();
 
 
 //                    System.out.println("교환신청 할 대상 트레이너를 고르세요!");

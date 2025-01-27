@@ -1,15 +1,20 @@
 package pocketmon;
 
+import lombok.Getter;
+
 import java.util.*;
 
+@Getter
 public class Trainer implements ITrainer {
+    public String name;
     //상대 트레이너 포켓몬 조회 위해 private => public 으로 교체
     public List<Pokemon> capturedPokemonList = new ArrayList<>();
     public Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private Scanner inputReader = new Scanner(System.in);
 
     // 트레이너 생성자: 초기 포켓몬 제공
-    public Trainer() {
+    public Trainer(String name) {
+        this.name = name;
         Pokemon starterPokemon = new Pokemon("꼬부기", 50, 5);
         capturedPokemonList.add(starterPokemon);
         capturedPokemonByName.put(starterPokemon.getPokemonName(), starterPokemon);
@@ -68,7 +73,7 @@ public class Trainer implements ITrainer {
             return;
         }
 
-        System.out.println("=== 현재 가진 포켓몬 목록 ===");
+        System.out.println("=== " + this.getName() + " 포켓몬 목록 ===");
         capturedPokemonList.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()
                 + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
     }
@@ -81,22 +86,29 @@ public class Trainer implements ITrainer {
     //대상 포켓몬 가져오기
     public void tradePokemon(Trainer trainer, String tgPokemon, String myPokemon) {
         //String 으로 이름 받고
-        //상대 포켓몬 검색
-        if (tgPokemon == trainer.capturedPokemonByName.get(tgPokemon).getPokemonName()) {
-            if (myPokemon == this.capturedPokemonByName.get(myPokemon).getPokemonName()) {
-                //맞는 포켓몬 내 리스트에 추가
-                this.capturedPokemonList.add(trainer.capturedPokemonByName.get(tgPokemon));
+        //검색 후 Pokemon 타입으로 받기
+        Pokemon tgPoke = trainer.capturedPokemonByName.get(tgPokemon);
+        Pokemon myPoke = this.capturedPokemonByName.get(myPokemon);
+        //받은 값으로 상대 포켓몬 검색
+        if (tgPoke == null) {
+            System.out.println("대상에게 없는 포켓몬 입니다.");
+        } else {
+            if (myPoke == null) {
+                System.out.println("본인에게 없는 포켓몬 입니다.");
+            } else {
+                //상대 리스트에 내 포켓몬 추가
+                trainer.capturedPokemonList.add(myPoke);
                 //상대 포켓몬 리스트에서 포켓몬 제거
                 trainer.capturedPokemonByName.remove(tgPokemon);
-                //상대 리스트에 내 포켓몬 추가
-                trainer.capturedPokemonList.add(this.capturedPokemonByName.get(myPokemon));
+                trainer.capturedPokemonList.remove(tgPoke);
+
+                //상대 포켓몬 내 리스트에 추가
+                this.capturedPokemonList.add(tgPoke);
                 //내 리스트에서 포켓몬 제거
                 this.capturedPokemonByName.remove(myPokemon);
-            } else {
-                System.out.println("본인에게 없는 포켓몬 입니다.");
+                this.capturedPokemonList.remove(myPoke);
+                System.out.println("교환 성공!");
             }
-        } else {
-            System.out.println("대상에게 없는 포켓몬 입니다.");
         }
     }
 
