@@ -25,7 +25,7 @@ public class Pokemon implements IPokemon {
         this.types = new ArrayList<>(); // 타입 목록 초기화
     }
 
-    // 특정 상황에서 랜덤 타입 추가 메서드
+    // 트레이드 상황에서 랜덤 타입 추가 메서드
     public void typeAdd() {
         // 타입 목록
         List<String> availableTypes = List.of("WATER", "FIRE", "EARTH", "SKY", "LEGENDARY", "MYSTIC", "NORMAL", "ELECTRIC");
