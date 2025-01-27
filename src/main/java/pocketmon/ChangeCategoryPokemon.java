@@ -10,20 +10,18 @@ import java.util.Random;
 
 @Getter
 @Setter
-public class ChangeCategoryPokemon extends Pokemon implements IChangeCategory {
+public class ChangeCategoryPokemon extends Pokemon {
     private static Map<String, PokeDex.PokeCategory> pokemonCategoryMap = new HashMap<>();
 
     public ChangeCategoryPokemon(String pokemonName, int HP, int level) {
         super(pokemonName,HP,level);
     }
 
-    @Override
     public void specialEvent(String pokemonName) {
         changeCategory(pokemonName);
     }
 
     @SneakyThrows
-    @Override
     public void changeCategory(String pokemonName) {
         Random rand = new Random();
         PokeDex.PokeCategory newCategory = getRandomPokeCategory();
