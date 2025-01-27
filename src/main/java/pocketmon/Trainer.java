@@ -5,7 +5,7 @@ import java.util.*;
 public class Trainer implements ITrainer {
     //상대 트레이너 포켓몬 조회 위해 private => public 으로 교체
     public List<Pokemon> capturedPokemonList = new ArrayList<>();
-    private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
+    public Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private Scanner inputReader = new Scanner(System.in);
 
     // 트레이너 생성자: 초기 포켓몬 제공
@@ -15,6 +15,7 @@ public class Trainer implements ITrainer {
         capturedPokemonByName.put(starterPokemon.getPokemonName(), starterPokemon);
         System.out.println("초기 포켓몬으로 " + starterPokemon.getPokemonName() + "(이)가 제공되었습니다!");
     }
+
 
     @Override
     public Pokemon encounterWildPokemon() {
@@ -80,7 +81,7 @@ public class Trainer implements ITrainer {
     //대상 포켓몬 가져오기
     public void tradePokemon(Trainer trainer, String tgPokemon, String myPokemon) {
         //String 으로 이름 받고
-        //포켓몬 검색
+        //상대 포켓몬 검색
         if (tgPokemon == trainer.capturedPokemonByName.get(tgPokemon).getPokemonName()) {
             if (myPokemon == this.capturedPokemonByName.get(myPokemon).getPokemonName()) {
                 //맞는 포켓몬 내 리스트에 추가
@@ -91,6 +92,8 @@ public class Trainer implements ITrainer {
                 trainer.capturedPokemonList.add(this.capturedPokemonByName.get(myPokemon));
                 //내 리스트에서 포켓몬 제거
                 this.capturedPokemonByName.remove(myPokemon);
+            } else {
+                System.out.println("본인에게 없는 포켓몬 입니다.");
             }
         } else {
             System.out.println("대상에게 없는 포켓몬 입니다.");

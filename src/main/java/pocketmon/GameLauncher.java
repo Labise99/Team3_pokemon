@@ -14,6 +14,11 @@ public class GameLauncher {
         trainerList.put(1, trainer1);
         trainerList.put(2, trainer2);
 
+        //트레이너가 보유한 포켓몬 더미데이터
+        Pokemon pikachu = new Pokemon("피카츄", 50, 5);
+        trainer2.capturedPokemonList.add(pikachu);
+        trainer2.capturedPokemonByName.put(pikachu.getPokemonName(), pikachu);
+
         while (true) {
             System.out.println("\n==== 포켓몬 게임 ====");
             System.out.println("1: 전투 시작");
@@ -54,7 +59,7 @@ public class GameLauncher {
                 case "5":
                     //TODO : 포켓몬 교환 메소드 호출
                     //상대 포켓몬 리스트 출력
-                    System.out.println("교환 가능한 상대의 포켓몬 : ");
+                    System.out.println("\n교환 가능한 상대의 포켓몬 : ");
                     trainer2.showOwnedPokemon();
                     System.out.println("상대의 포켓몬 이름 : ");
                     String tgPokemon = scanner.nextLine();
