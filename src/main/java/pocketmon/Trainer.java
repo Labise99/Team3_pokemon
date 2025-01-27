@@ -1,6 +1,7 @@
 package pocketmon;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.util.*;
 
@@ -233,6 +234,7 @@ public class Trainer implements ITrainer {
     }
 
     // 트레이딩
+    @SneakyThrows
     public static void TradePokemon(Trainer trainer1, Trainer trainer2) {
         List<Pokemon> trainer1List = trainer1.getCapturedPokemonList();
         List<Pokemon> trainer2List = trainer2.getCapturedPokemonList();
@@ -268,7 +270,7 @@ public class Trainer implements ITrainer {
 
         // 포켓몬이 없다면 교환 실패 메시지 출력
         if (pokemon1 == null) {
-            System.out.println("현재 " + trainer1PokemonName + "을(를) 소유하지 않습니다. ");
+            System.out.println("현재 " + trainer1PokemonName + "을(를) 소유하지 않습니다. 교환 실패!");
             // 다시 선택하게 할 것인지?
             return;
         }
@@ -277,23 +279,27 @@ public class Trainer implements ITrainer {
             return;
         }
 
-        // 트레이딩
-        System.out.println("트레이딩을 시작합니다!");
+        // 트레이딩 시작
+        System.out.print("트레이딩을 시작합니다! ");
         System.out.println(" --- " + pokemon1 + " <-> " + pokemon2 + " --- ");
+        Thread.sleep(1000);  // 1초 대기
+        System.out.print("3... ");
+        Thread.sleep(1000);
+        System.out.print("2... ");
+        Thread.sleep(1000);
+        System.out.println("1... 🚀");
+
         trainer1List.remove(pokemon1);
         trainer2List.remove(pokemon2);
         trainer1List.add(pokemon1);
         trainer2List.add(pokemon2);
 
         // 트레이딩 완료 후 리스트 업데이트
-        System.out.println("트레이딩이 완료되었습니다!");
+        System.out.println("축하합니다! 트레이딩이 완료되었습니다! \n");
 
         System.out.println("=== " + trainer1 + "의 포켓몬 목록 ===");
         trainer1List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
-        // + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
         System.out.println("=== " + trainer2 + "의 포켓몬 목록 ===");
         trainer2List.forEach(pokemon -> System.out.println("- " + pokemon.getPokemonName()));
-        // + " (HP: " + pokemon.getHP() + ", Level: " + pokemon.getLevel() + ")"));
     }
-
 }
