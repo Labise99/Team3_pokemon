@@ -78,6 +78,7 @@ public class GameLauncher {
                 default:
                     System.out.println("잘못된 입력입니다. 1, 2, 3, 4, 5 중에서 선택하세요.");
             }
+
         }
     }
 }
