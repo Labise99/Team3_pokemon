@@ -3,7 +3,7 @@ package pocketmon;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CityMap {
+public class TownMap {
     // 지도 및 위치 이동 관련 클래스
     // 객체화하지 않고 static으로 선언
     // Scanner 객체 생성
@@ -22,7 +22,7 @@ public class CityMap {
 
 
     // 도시 목록
-    static Map<String, PokeTown> cityMap = Map.of(
+    static Map<String, PokeTown> townMap = Map.of(
             "태초마을", palletTown,
             "상록시티", viridianPokeTown,
             "달맞이동산", moonHill

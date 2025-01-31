@@ -9,7 +9,7 @@ import java.util.*;
 public class Trainer implements ITrainer {
     private List<Pokemon> capturedPokemonList = new ArrayList<>();
     private Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
-    private PokeTown currentPokeTown = CityMap.cityMap.get("태초마을"); // 현재 위치
+    private PokeTown currentPokeTown = TownMap.townMap.get("태초마을"); // 현재 위치
     // 테스트를 위해 기본 위치를 태초마을로 지정
     // 추후 트레이너 객체 생성 시 위치를 따로 지정할 수 있도록 수정해야함
 
@@ -29,25 +29,25 @@ public class Trainer implements ITrainer {
     // 도시 직접 이동 메소드
     public void walkCity() {
         // 트레이너의 현재 위치 불러오기
-        currentPokeTown = CityMap.cityMap.get(this.currentPokeTown);
+        currentPokeTown = TownMap.townMap.get(this.currentPokeTown);
         // 이동 가능한 도시 목록 출력
         System.out.println("이동 가능한 도시 목록:");
-        currentPokeTown.getConnectedCities().forEach(city -> System.out.println("- " + city.getCityName()));
+        currentPokeTown.getConnectedCities().forEach(city -> System.out.println("- " + city.getTownName()));
         // 이동할 도시 선택
         System.out.println("이동할 도시를 선택하세요:");
         String targetCity = inputReader.nextLine().trim();
         // 존재하는 도시인지 확인
-        if (!CityMap.cityMap.containsKey(targetCity)) {
+        if (!TownMap.townMap.containsKey(targetCity)) {
             System.out.println("해당 도시가 존재하지 않습니다.");
             return;
         }
         // 이동 가능한 도시인지 확인
-        if (!currentPokeTown.getConnectedCities().contains(CityMap.cityMap.get(targetCity))) {
+        if (!currentPokeTown.getConnectedCities().contains(TownMap.townMap.get(targetCity))) {
             System.out.println("해당 도시로 이동할 수 없습니다.");
             return;
         }
         // 선택한 도시로 이동
-        this.currentPokeTown = CityMap.cityMap.get(targetCity);
+        this.currentPokeTown = TownMap.townMap.get(targetCity);
         System.out.println(targetCity + "(으)로 이동했습니다.");
     }
 
@@ -137,11 +137,11 @@ public class Trainer implements ITrainer {
         System.out.println("이동할 도시를 입력하세요:");
         String tgCityName = inputReader.nextLine().trim();
         // 목표 도시가 존재하는지 확인
-        if (!CityMap.cityMap.containsKey(tgCityName)) {
+        if (!TownMap.townMap.containsKey(tgCityName)) {
             System.out.println("해당 도시가 존재하지 않습니다.");
             return;
         }
-        PokeTown targetPokeTown = CityMap.cityMap.get(tgCityName);
+        PokeTown targetPokeTown = TownMap.townMap.get(tgCityName);
 
         // FlyPokemon이면 fly 메소드 호출, SurfPokemon이면 surf 메소드 호출
         if (pokemon instanceof FlyPokemon) {
@@ -152,7 +152,7 @@ public class Trainer implements ITrainer {
         }
 
         // 이동 지역이 달맞이동산이라면 arriveAtMoonHill 메소드 호출
-        if(this.currentPokeTown.getCityName().equals("달맞이동산")){
+        if(this.currentPokeTown.getTownName().equals("달맞이동산")){
             arriveAtMoonHill();
         }
     }

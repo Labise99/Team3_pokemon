@@ -11,7 +11,7 @@ public class FlyPokemon extends Pokemon implements IFlyable {
     @Override
     public void fly(PokeTown tgPokeTown, Trainer trainer) {
         trainer.setCurrentPokeTown(tgPokeTown);
-        System.out.println(this.getPokemonName() + "(이)가 " + tgPokeTown.getCityName() + "(으)로 날아갑니다!");
+        System.out.println(this.getPokemonName() + "(이)가 " + tgPokeTown.getTownName() + "(으)로 날아갑니다!");
     }
 
     @Override
