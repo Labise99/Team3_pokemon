@@ -11,6 +11,9 @@ public class PokeTown {
     private String townName; // 도시 이름
     private List<PokeTown> connectedCities = new ArrayList<>(); // 연결된 도시 목록
 
+    // branch init
+
+
     // 생성자
     public PokeTown(String townName) {
         this.townName = townName;
