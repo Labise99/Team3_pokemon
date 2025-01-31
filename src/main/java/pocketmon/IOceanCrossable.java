@@ -1,5 +1,5 @@
 package pocketmon;
 
 public interface IOceanCrossable {
-    public void crossOcean(City tgCity, Trainer trainer);
+    public void crossOcean(PokeTown tgPokeTown, Trainer trainer);
 }

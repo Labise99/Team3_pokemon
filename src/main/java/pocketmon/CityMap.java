@@ -10,21 +10,21 @@ public class CityMap {
     Scanner inputReader = new Scanner(System.in);
 
     // 도시 선언
-    static City palletTown = new City("태초마을"); // ?? : 태초마을이야!
-    static City viridianCity = new City("상록시티");
-    static City moonHill = new City("달맞이동산");
+    static PokeTown palletTown = new PokeTown("태초마을"); // ?? : 태초마을이야!
+    static PokeTown viridianPokeTown = new PokeTown("상록시티");
+    static PokeTown moonHill = new PokeTown("달맞이동산");
 
     // 도시 연결
     static {
-        palletTown.connectCity(viridianCity);
-        viridianCity.connectCity(palletTown);
+        palletTown.connectCity(viridianPokeTown);
+        viridianPokeTown.connectCity(palletTown);
     }
 
 
     // 도시 목록
-    static Map<String, City> cityMap = Map.of(
+    static Map<String, PokeTown> cityMap = Map.of(
             "태초마을", palletTown,
-            "상록시티", viridianCity,
+            "상록시티", viridianPokeTown,
             "달맞이동산", moonHill
     );
 

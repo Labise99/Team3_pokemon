@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class City {
+public class PokeTown {
     // 도시 정보 관련 클래스
     private String cityName; // 도시 이름
-    private List<City> connectedCities = new ArrayList<>(); // 연결된 도시 목록
+    private List<PokeTown> connectedCities = new ArrayList<>(); // 연결된 도시 목록
 
     // 생성자
-    public City(String cityName) {
+    public PokeTown(String cityName) {
         this.cityName = cityName;
     }
 
     // 도시 연결 메서드
-    public void connectCity(City city) {
-        connectedCities.add(city);
+    public void connectCity(PokeTown pokeTown) {
+        connectedCities.add(pokeTown);
     }
 
     // 그럼 이제 무슨 메서드가 필요할 것인가
